@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #1D1D1D;
+}
+
+.top {
+  width: 100%;
+  background-color: #171717;
+  display: inline-block;
+}
+
+#t {
+  float: left;
+  color: white;
+  padding: 10px;
+  font-size: 30px;
+  display: block;
+}
+
+#e {
+  float: right;
+  color: white;
+  padding: 10px;
+  font-size: 30px;
+  display: block;
+}
+
+#u {
+  width: 855px;
+  margin:0 auto;
+  text-align: center;
+}
+
+.g {
+  color: green;
+  font-size: 50px;
+}
+
+#w {
+  color: green;
+  font-size: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+progress {
+  background-color: #171717;
+  background-color: green !important;
+  height: 2.5rem;
+  width: 70%
+}
+
+
+
