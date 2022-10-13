@@ -82,13 +82,13 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 
-"""
+
 response = urlopen("https://raw.githubusercontent.com/dominikcoderXZC/snek/main/Snek_v1.2_BETA_(play_early)")
 data = response.read().decode('utf-8')
 if open(__file__,"r",encoding='utf-8').read() != data:
     messagebox.showinfo(title="update",message="a new update is available, press ok to update")
     open(__file__,"w",encoding='utf-8').write(data)
-"""
+
 
 def show_exception_and_exit(exc_type, exc_value, tb):
     import traceback
