@@ -84,6 +84,7 @@ except ImportError:
 
 python = sys.executable
 
+
 response = urlopen("https://raw.githubusercontent.com/dominikcoderXZC/snek/main/Snek_v1.2_BETA_(play_early)")
 data = response.read().decode('utf-8')
 if open(__file__,"r",encoding='utf-8').read() != data:
@@ -104,12 +105,13 @@ sys.excepthook = show_exception_and_exit
 os.system("cd ")
 
 if not os.path.exists(os.path.dirname(os.path.realpath(__file__))+"\.data"):
-    open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w").write("""#{'eq': 0, 'items': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+    open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w").write("""#{'mode':'1','eq': 0, 'items': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
 #0
 #0
 #None
 #[1, 3, 5, 7]
 #2
+#False
 """
 )
 
@@ -167,27 +169,27 @@ except:
     toss = "no internet"
 
 def writehs():
-    print("pass")
-    data1["items"][0] = 1
-    temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
-    temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
-    temp2[2] = "#" + str(totalscore[0]) + "\n"
-    if totalscore[0] > 80 and not data1["items"][14] == 1 and not data1["items"][15] == 1:
-        data1["items"][14] = 1
-        data1["items"][15] = 1
-        temp2[0] = "#" + str(data1) + "\n"
-        messagebox.showwarning(title="SUPERHIGHSCOREDETECTED",message="WE HAVE DETECTED THAT YOUR SCORE IS OVER 80!\n\nPROTOCAL.ADDSKIN IS EXECUTING")
-    elif totalscore[0] > 80 and not data1["items"][15] == 1:
-        data1["items"][15] = 1
-        temp2[0] = "#" + str(data1) + "\n"
-        messagebox.showwarning(title="SUPERHIGHSCOREDETECTED",message="WE HAVE DETECTED THAT YOUR SCORE IS OVER 80!\n\nPROTOCAL.ADDSKIN IS EXECUTING")
-    elif totalscore[0] > 50 and not data1["items"][14] == 1:
-        data1["items"][14] = 1
-        temp2[0] = "#" + str(data1) + "\n"
-        messagebox.showwarning(title="SUPERHIGHSCOREDETECTED",message="WE HAVE DETECTED THAT YOUR SCORE IS OVER 50!\n\nPROTOCAL.ADDSKIN IS EXECUTING")
-    for i in temp2:
-        temp.write(i)
-        temp.flush()
+    if not diff == "1":
+        data1["items"][0] = 1
+        temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
+        temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
+        temp2[2] = "#" + str(totalscore[0]) + "\n"
+        if totalscore[0] > 80 and not data1["items"][14] == 1 and not data1["items"][15] == 1:
+            data1["items"][14] = 1
+            data1["items"][15] = 1
+            temp2[0] = "#" + str(data1) + "\n"
+            messagebox.showwarning(title="SUPERHIGHSCOREDETECTED",message="WE HAVE DETECTED THAT YOUR SCORE IS OVER 80!\n\nPROTOCAL.ADDSKIN IS EXECUTING")
+        elif totalscore[0] > 80 and not data1["items"][15] == 1:
+            data1["items"][15] = 1
+            temp2[0] = "#" + str(data1) + "\n"
+            messagebox.showwarning(title="SUPERHIGHSCOREDETECTED",message="WE HAVE DETECTED THAT YOUR SCORE IS OVER 80!\n\nPROTOCAL.ADDSKIN IS EXECUTING")
+        elif totalscore[0] > 50 and not data1["items"][14] == 1:
+            data1["items"][14] = 1
+            temp2[0] = "#" + str(data1) + "\n"
+            messagebox.showwarning(title="SUPERHIGHSCOREDETECTED",message="WE HAVE DETECTED THAT YOUR SCORE IS OVER 50!\n\nPROTOCAL.ADDSKIN IS EXECUTING")
+        for i in temp2:
+            temp.write(i)
+            temp.flush()
 
 def coinee():
     data1["items"][0] = 1
@@ -311,6 +313,37 @@ def news2():
     Label(nwe,text=news,fg="green",bg="#252525",font=("Lucida Console","10")).pack()
     Button(nwe,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=nwe.destroy).pack(side=BOTTOM)
     nwe.after(10,top)
+
+ev = False
+
+def event():
+    global ev
+    nwe = Toplevel()
+    def top():
+        nwe.attributes("-topmost",True)
+        nwe.geometry("300x300+{}+{}".format(str(int(root.winfo_x()+root.winfo_width()/2)-150),str(int(root.winfo_y()+root.winfo_height()/2)-150)))
+        nwe.after(10,top)
+    nwe.overrideredirect(True)
+    nwe.config(bg="#252525")
+    Label(nwe,text="EVENT:",fg="green",bg="#252525",font=("Lucida Console","30","bold")).pack()
+
+    e = Frame(nwe,bg='#252525')
+    e.pack(side=TOP,pady=20)
+    e2 = Canvas(e,bg='black',width=100,height=100)
+    e2.pack(side=TOP)
+
+    def ea():
+        global ev
+        passed.set("hello")
+        pass2.set("yes2")
+        nwe.destroy()
+        ev = True
+
+    pl = Button(e,text="play",command=lambda: ea())
+    pl.pack()
+
+    Button(nwe,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=nwe.destroy).pack(side=BOTTOM)
+    nwe.after(10,top)
  
 root.config(cursor="dot")
  
@@ -327,6 +360,73 @@ def tos():
     nwe.config(bg="#252525")
     Label(nwe,text=toss,fg="green",bg="#252525",font=("Lucida Console","10")).pack()
     Button(nwe,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=lambda: [nwe.destroy(),settings2()]).pack(side=BOTTOM)
+    nwe.after(10,top)
+
+def quest():
+    nwe = Toplevel()
+    def top():
+        nwe.attributes("-topmost",True)
+        nwe.geometry("800x425+{}+{}".format(str(int(root.winfo_x()+root.winfo_width()/2)-400),str(int(root.winfo_y()+root.winfo_height()/2)-225)))
+        nwe.after(10,top)
+    nwe.overrideredirect(True)
+    nwe.config(bg=back_ground)
+    Label(nwe,text="ᙃᙀᙁᘜᙓOᙁ",fg="green",bg=back_ground,font=("Lucida Console","80")).pack(pady=40)
+    yes1 = not highscore >= 100
+    yes2 =  not int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) == 8
+    if yes1:
+        Label(nwe,text="reach a score of 100 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
+    if yes1 and yes2:
+        Label(nwe,text="and",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
+    if yes2:
+        Label(nwe,text="max out apple upgrade to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
+    if not yes1 and not yes2:
+        if not eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[7][1:]):
+            root.withdraw()
+            nwe.withdraw()
+            messagebox.showinfo(title="???",message="Hello traveler...")
+            messagebox.showinfo(title="???",message="I was waiting for you here")
+            messagebox.showinfo(title="???",message="Watching your every move")
+            messagebox.showinfo(title="???",message="Summoning in lasers to stop you")
+            messagebox.showinfo(title="???",message="Yes, it was me spawning those lasers")
+            messagebox.showinfo(title="???",message="Yet, nothing seemed to stop you...")
+            messagebox.showinfo(title="???",message="I have a couple of things for you")
+            messagebox.showinfo(title="???",message="After all, you have proved yourself back there")
+            messagebox.showinfo(title="???",message="Let's get to the point")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="My name is s̸t̶e̷m̵p̷i̴n̴o̴")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="My job is to get you going")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="If you need anything, then i'm always here..")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="Unless im out causing commotion in others gameplay")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="I make life hard for others")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="But now that you have met me, keep me a secret")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="I will give you something in return. Deal?")
+            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="I knew you would agree after all...")
+            root.deiconify()
+            nwe.deiconify()
+            global temp, temp2, data1
+            temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
+            temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
+            data1["items"][16] = 1
+            temp2[7] = "#" + "True" + "\n"
+            temp2[0] = "#" + str(data1) + "\n"
+            for i in temp2:
+                temp.write(i)
+                temp.flush()
+            cv = Canvas(nwe,width=50,height=50,bg="#000000")
+            cv.pack()
+            cv.create_rectangle(11,11,42,42,fill="white")
+            cv.create_rectangle(13,13,40,40,fill="black")
+            cv.create_text(47,7,text="G",fill="white")
+            Label(nwe,text="skin added\nto items!",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
+        else:
+            cv = Canvas(nwe,width=50,height=50,bg="#000000")
+            cv.pack()
+            cv.create_rectangle(11,11,42,42,fill="white")
+            cv.create_rectangle(13,13,40,40,fill="black")
+            cv.create_text(47,7,text="G",fill="white")
+            Label(nwe,text="skin added\nto items!",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
+            
+
+    Button(nwe,text="close",fg="green",bg=back_ground,font=("Lucida Console","20"),command=lambda: nwe.destroy()).pack(side=BOTTOM)
     nwe.after(10,top)
 
 def item():
@@ -375,6 +475,8 @@ def item():
             return ["""re2[i-1].create_rectangle(13,13,40,40,tags='square',fill='black',outline='blue', width=2)""","""re2[i-1].create_text(26,25,font=("Arial","15"),text="50",tags='square',fill='blue')"""]
         elif num == 16:
             return ["""re2[i-1].create_rectangle(13,13,40,40,tags='square',fill='black',outline='purple', width=2)""","""re2[i-1].create_text(26,25,font=("Arial","15"),text="80",tags='square',fill='purple')"""]
+        elif num == 17:
+            return ["""re2[i-1].create_rectangle(11,11,42,42,tags='square',fill='white')""","""re2[i-1].create_rectangle(13,13,40,40,tags='square',fill='black')""","""re2[i-1].create_text(47,7,font=("Arial","10"),text="G",tags='square',fill='white')"""]
     def equ(num):
         global money, temp, temp2
         data1["eq"] = num
@@ -433,6 +535,10 @@ def item():
             if len(checkish1(i)) == 2:
                 eval(checkish1(i)[0])
                 eval(checkish1(i)[1])
+            elif len(checkish1(i)) == 3:
+                eval(checkish1(i)[0])
+                eval(checkish1(i)[1])
+                eval(checkish1(i)[2])
             else:
                 eval(checkish1(i)[0])
             if i == 1:
@@ -467,6 +573,8 @@ def item():
                 Button(re[i-1],text="equip",bg='#252525',fg='light green',font=('Lucida Console','15'),command=lambda: equ(15)).pack(pady=5)
             elif i == 16:
                 Button(re[i-1],text="equip",bg='#252525',fg='light green',font=('Lucida Console','15'),command=lambda: equ(16)).pack(pady=5)
+            elif i == 17:
+                Button(re[i-1],text="equip",bg='#252525',fg='light green',font=('Lucida Console','15'),command=lambda: equ(17)).pack(pady=5)
             
     nwe.after(10,top)
 
@@ -476,8 +584,18 @@ la.set(True)
 la2 = BooleanVar()
 la2.set(True)
 
+mode1 = data1["mode"]
+
 def settings2():
-    global diff, tos, la, la2
+    global diff, tos, la, la2, mode1
+    def save():
+        data1["mode"] = mode1
+        temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
+        temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
+        temp2[0] = "#" + str(data1) + "\n"
+        for i in temp2:
+            temp.write(i)
+            temp.flush()
     nwe2 = Toplevel()
     nwe2.overrideredirect(True)
     nwe2.config(bg="#252525")
@@ -493,16 +611,22 @@ def settings2():
     Label(f33,text="eyes enabled",fg="green",bg="#252525",font=("Lucida Console","10")).pack(side=LEFT)
     e2221 = Checkbutton(f33,variable=la2,bg="#252525",fg="green",cursor="dot")
     e2221.pack()
-    Button(f,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=nwe2.destroy).pack(side=LEFT,padx=25)
+    Button(f,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=lambda: [save(),nwe2.destroy()]).pack(side=LEFT,padx=25)
     f11 = Label(nwe2,text="difficulty: easy",fg="green",bg="#252525",font=("Lucida Console","10"))
     f11.pack()
     s = Scale(nwe2,from_=1,to=5,bg="#252525",bd=0,orient=HORIZONTAL,showvalue=0)
     s.set(diff)
-    Button(f,text="tos",fg="green",bg="#252525",font=("Lucida Console","10"),command=lambda: [tos(),nwe2.destroy()]).pack(side=RIGHT)
     s.pack()
+    if data1["eq"] == 17:
+        f63 = Label(nwe2,text="dungeon skin mode: white",fg="green",bg="#252525",font=("Lucida Console","10"))
+        f63.pack()
+        s2 = Scale(nwe2,from_=1,to=4,bg="#252525",bd=0,orient=HORIZONTAL,showvalue=0)
+        s2.set(int(data1["mode"]))
+        s2.pack()
+    Button(f,text="tos",fg="green",bg="#252525",font=("Lucida Console","10"),command=lambda: [tos(),nwe2.destroy()]).pack(side=RIGHT)
  
     def top():
-        global diff
+        global diff, mode1
         nwe2.attributes("-topmost",True)
         nwe2.geometry("300x300+{}+{}".format(str(int(root.winfo_x()+root.winfo_width()/2)-150),str(int(root.winfo_y()+root.winfo_height()/2)-150)))
         nwe2.after(10,top)
@@ -515,6 +639,15 @@ def settings2():
         }
         diff = str(s.get())
         f11.config(text="difficulty: "+numbers[str(s.get())])
+        if data1["eq"] == 17:
+            numbers2 = {
+                "1":"normal",
+                "2":"reactive",
+                "3":"rainbow",
+                "4":"single rainbow"
+            }
+            mode1 = str(s2.get())
+            f63.config(text="dungeon skin mode: "+numbers2[str(s2.get())])
     nwe2.after(10,top)
 
 def shop():
@@ -679,12 +812,13 @@ def shop():
 
     def appla():
         global money, temp, temp2 
-        apples = int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) + 1
-        if money >= 500 and not apples == 9:
+        apples = int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:])
+        if money >= 500 and not apples == 8:
             money -= 500
             temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
             temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
-            temp2[5] = "#" + str(apples) + "\n"
+            temp2[5] = "#" + str(apples+1) + "\n"
+            temp2[2] = "#" + str(money) + "\n"
             for i in temp2:
                 temp.write(i)
                 temp.flush()
@@ -694,6 +828,25 @@ def shop():
             nwe.withdraw()
             root.withdraw()
             messagebox.showinfo(title="error!",message="not enough money or\nmax apple limit reached")
+            nwe.deiconify()
+            root.deiconify()
+    def kapp():
+        global money, temp, temp2
+        if money >= 3000:
+            money -= 3000
+            temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
+            temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
+            temp2[6] = "#" + "True" + "\n"
+            temp2[1] = "#" + str(money) + "\n"
+            for i in temp2:
+                temp.write(i)
+                temp.flush()
+            nwe.destroy()
+            shop()
+        else:
+            nwe.withdraw()
+            root.withdraw()
+            messagebox.showinfo(title="error!",message="not enough money!")
             nwe.deiconify()
             root.deiconify()
 
@@ -710,18 +863,19 @@ def shop():
     ga3 = Button(ga,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: appla())
     ga3.pack()
 
-    sh = Frame(f33,bg="#1D1D1D")
-    sh.pack(side=LEFT,padx=20)
+    if not eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
+        ka = Frame(f33,bg="#1D1D1D")
+        ka.pack(side=LEFT,padx=20)
 
-    sh1 = Canvas(sh,bg='black',width=50,height=50)
+        ka1 = Canvas(ka,bg='black',width=50,height=50)
 
-    sh1.create_oval(13,13,40,40,fill='gray',outline='lightgray', width=2)
+        ka1.create_text(27,30,text="?",fill='white',font=("Lucida Console","30"))
 
-    sh1.pack(side=TOP)
-    sh2 = Label(sh,text="500\n({}/8)".format(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:2]),fg="yellow",bg="#1D1D1D",font=("Lucida Console","10"))
-    sh2.pack()
-    sh3 = Button(sh,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: appla())
-    sh3.pack()
+        ka1.pack(side=TOP)
+        ka2 = Label(ka,text="3000\n",fg="yellow",bg="#1D1D1D",font=("Lucida Console","10"))
+        ka2.pack()
+        ka3 = Button(ka,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: kapp())
+        ka3.pack()
 
     f44 = Frame(nwe,bg="#1D1D1D")
     f44.pack(side=BOTTOM)
@@ -747,14 +901,26 @@ players = 1
 newslbl = None
 slbl2 = None
 
+
 def start():
     global passed, snake, gridsize, speed, cla, score, inc, invin, pass2, players, ton, newslbl, slbl2
  
-    newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=news2)
-    newslbl.pack(side=LEFT)
+    if eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
+
+        newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=news2)
+        newslbl.pack(side=LEFT)
+        
+        whatlbl = Button(text="???",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=quest)
+        whatlbl.pack(side=LEFT)
  
-    slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,command=settings2)
-    slbl2.pack(side=RIGHT)
+        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,command=settings2)
+        slbl2.pack(side=RIGHT)
+    else:
+        newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=news2)
+        newslbl.pack(side=LEFT)
+
+        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,command=settings2)
+        slbl2.pack(side=RIGHT)
  
     pass2 = StringVar()
     pass2.set("no")
@@ -797,7 +963,7 @@ def start():
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
                     highlightthickness=3,
-                    command=lambda: messagebox.showinfo(title="Inc0m1ng m355ag3",message="see you in 1.2..."),
+                    command=lambda: event(),
                     fg="#ffffff",
                     borderwidth=4,
                     highlightcolor="#ffffff",
@@ -849,7 +1015,8 @@ def start():
                     )
     button1.pack(side=BOTTOM)
 
-    logo.wait_variable(passed)
+    if not pass2.get() == "yes2":
+        logo.wait_variable(passed)
 
     HL.destroy()
     button1.destroy()
@@ -954,6 +1121,7 @@ luckyr = None
 luckyt = None
 
 bombcc = []
+miscc = []
 
 shadowed = False
 avsha = False
@@ -985,14 +1153,31 @@ def poison():
     game.config(bg="red")
     time.sleep(0.2)
     game.config(bg="black")
-    speed += 20
+    speed += 8
 
 
 def startbm():
     import time
-    if diff == "2":
+    if pass2.get() == "yes2":
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+        threading.Thread(target=lambda: bomb(3)).start()
+        time.sleep(0.5)
+    elif diff == "2":
         threading.Thread(target=lambda: bomb(1)).start()
-    if diff == "3":
+    elif diff == "3":
         threading.Thread(target=lambda: bomb(2)).start()
         time.sleep(0.5)
         threading.Thread(target=lambda: bomb(2)).start()
@@ -1019,6 +1204,69 @@ def startbm():
         time.sleep(0.5)
         threading.Thread(target=lambda: bomb(3)).start()
         time.sleep(0.5)
+
+def missle(num):
+    global bombcc, la, paused
+    import time, threading
+    misc = ()
+    misr = None
+    run = True
+    while paused:
+        pass
+        time.sleep(0.2)
+    while run == True:
+        body = tuple(zip(x,y))
+        misc = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
+        miscc.append(misc)
+        if not misc in body or 0 in misc or gridsize-1 in misc:
+            run = False
+    line1 = game.create_oval(misc[0]*g-30,misc[1]*g-30,misc[0]*g+30+g,misc[1]*g+g+30,tags="mis",fill="black",outline="red",width=2)
+    line2 = game.create_line(misc[0]*g+g/2,misc[1]*g-50,misc[0]*g+g/2,misc[1]*g+g+50,tags="mis",fill="red",width=2)
+    line3 = game.create_line(misc[0]*g-50,misc[1]*g+g/2,misc[0]*g+60,misc[1]*g+g/2,tags="mis",fill="red",width=2)
+    line4 = game.create_oval(misc[0]*g-15,misc[1]*g-15,misc[0]*g+15+g,misc[1]*g+g+15,tags="mis",fill="black")
+    game.tag_lower(line4)
+    game.tag_lower(line3)
+    game.tag_lower(line2)
+    game.tag_lower(line1)
+    time.sleep(1)
+    gren = game.create_rectangle(misc[0]*g-30,misc[1]*g-30,misc[0]*g+30+g,misc[1]*g+g+30,tags="mis",fill="darkred",outline="red",width=3)
+    time.sleep(0.1)
+    game.delete(gren)
+    gren = game.create_rectangle(misc[0]*g-25,misc[1]*g-25,misc[0]*g+25+g,misc[1]*g+g+25,tags="mis",fill="darkred",outline="red",width=3)
+    time.sleep(0.1)
+    game.delete(gren)
+    gren = game.create_rectangle(misc[0]*g-20,misc[1]*g-20,misc[0]*g+20+g,misc[1]*g+g+20,tags="mis",fill="darkred",outline="red",width=3)
+    time.sleep(0.1)
+    game.delete(gren)
+    gren = game.create_rectangle(misc[0]*g-15,misc[1]*g-15,misc[0]*g+15+g,misc[1]*g+g+15,tags="mis",fill="darkred",outline="red",width=3)
+    time.sleep(0.1)
+    game.delete(gren)
+    gren = game.create_rectangle(misc[0]*g-10,misc[1]*g-10,misc[0]*g+10+g,misc[1]*g+g+10,tags="mis",fill="darkred",outline="red",width=3)
+    time.sleep(0.1)
+    game.delete(gren)
+    game.delete(line1)
+    game.delete(line2)
+    game.delete(line3)
+    game.delete(line4)
+    time.sleep(0.1)
+    game.create_oval(misc[0]*g-40,misc[1]*g-40,misc[0]*g+10+g,misc[1]*g+g,tags="mis",fill="#E25822")
+    time.sleep(0.1)
+    game.create_oval(misc[0]*g-20,misc[1]*g-20,misc[0]*g+30+g,misc[1]*g+g+30,tags="mis",fill="yellow") 
+    time.sleep(0.1)
+    game.create_oval(misc[0]*g+50,misc[1]*g,misc[0]*g-40+g,misc[1]*g+g+40,tags="mis",fill="orange")
+    time.sleep(0.1)
+    game.create_oval(misc[0]*g+0,misc[1]*g-50,misc[0]*g+50+g,misc[1]*g+g,tags="mis",fill="orange")
+    time.sleep(1)
+    game.delete("mis")
+    miscc.remove(misc)
+    time.sleep(random.randint(1,5))
+    for i in body:
+        if misc in body:
+            paused = True
+            messagebox.showinfo("you were bombed!")
+            os.execl(python, python, *sys.argv)
+    threading.Thread(target=lambda: missle(3)).start()
+    game.update()
 
 
 def bomb(num):
@@ -1094,11 +1342,17 @@ def bomb(num):
     time.sleep(random.randint(1,3))
     threading.Thread(target=lambda: bomb(num)).start()
 
+picked = "white"
+colors = ["red","orange","yellow","lightgreen","green","blue","purple","pink"]
+cur = "red"
+
 
 def printsnek(x11,x22,x33,x44, ie):
-    global shadowed
+    global shadowed, picked, mode1, cur, colors
     if shadowed:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="darkgray",outline="lightgray",width=2)
+    elif spiced:
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="red",width=2)
     elif data1["eq"] == 0:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green")
     elif data1["eq"] == 1:
@@ -1138,6 +1392,26 @@ def printsnek(x11,x22,x33,x44, ie):
     elif data1["eq"] == 16:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='purple', width=2)
         game.create_text(x11+6,x22+6,text="80",tags='square',fill='purple',font=("Arial","6"))
+    elif data1["eq"] == 17:
+        if mode1 == "1":
+            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill="white",outline="")
+        elif mode1 == "2":
+            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=picked,outline="")
+        elif mode1 == "3":
+            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=cur,outline="")
+            try:
+                cur = colors[colors.index(cur)+1]
+            except:
+                cur = "red"
+        elif mode1 == "4":
+            if ie == 1:
+                try:
+                    cur = colors[colors.index(cur)+1]
+                except:
+                    cur = "red"
+            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=cur,outline="")
+        game.tag_lower("square3")
+        game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black')
     if ie == 1 and la2.get():
         if direction == "u":
             game.create_oval(x11-6,x22-6,x11+4,x22+4,tags='square',fill='white')
@@ -1163,8 +1437,21 @@ def printsnek(x11,x22,x33,x44, ie):
 
             game.create_oval(x33-3,x22-3,x33+2,x22+2,tags='square',fill='black')
             game.create_oval(x33+3,x44+2,x33-2,x44-3,tags='square',fill='black')
-def exp():
-    pass
+
+spiced = False
+
+def spice(type):
+    global spiced, speed
+    spiced = True
+    speed -= 40
+    if type == "rs":
+        time.sleep(1)
+    if type == "ys":
+        time.sleep(3)
+    if type == "bs":
+        time.sleep(9)
+    speed += 40
+    spiced = False
 
 def luckyapple(starting):
     global luckyc, luckyr, luckyt
@@ -1186,7 +1473,7 @@ def luckyapple(starting):
         luckyt = game.create_text(luckyc[0]*g+6,luckyc[1]*g+6,text="?",tags="lucky",fill="white")
 
 def placeapple(five=False):
-    global gridsize, speed, inc, applebody, appleid, applet, appf    
+    global gridsize, speed, inc, applebody, appleid, applet, appf, applesp
     run = True
     if five:
         tryit = 3
@@ -1201,6 +1488,8 @@ def placeapple(five=False):
                     run = False
             appf = "darkgray"
             applet.append("s")
+            spice = False
+            applesp.append("no")
             continueit = True
             while continueit:
                 ran = str(random.randint(0,100000))
@@ -1208,12 +1497,18 @@ def placeapple(five=False):
                     app = len(appleid)
                     appleid.append(ran)
                     continueit = False
-        elif random.randint(0,50) == "a":
+        elif random.randint(0,20) == 3:
             while run == True:
                 coords = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
                 body = tuple(zip(x,y))
                 if not coords in body or 0 in coords or not gridsize-1 in coords:
                     run = False
+            if random.randint(0,10) == 5:
+                spice = True
+                applesp.append("yes")
+            else:
+                spice = False
+                applesp.append("no")
             appf = "blue"
             applet.append("b")
             continueit = True
@@ -1231,6 +1526,12 @@ def placeapple(five=False):
                     run = False
             appf = "yellow"
             applet.append("y")
+            if random.randint(0,10) == 1:
+                spice = True
+                applesp.append("yes")
+            else:
+                spice = False
+                applesp.append("no")
             continueit = True
             while continueit:
                 ran = str(random.randint(0,100000))
@@ -1246,6 +1547,12 @@ def placeapple(five=False):
                     run = False
             appf = "red"
             applet.append("r")
+            if random.randint(0,10) == 10:
+                spice = True
+                applesp.append("yes")
+            else:
+                spice = False
+                applesp.append("no")
             continueit = True
             while continueit:
                 ran = str(random.randint(0,100000))
@@ -1256,14 +1563,18 @@ def placeapple(five=False):
         apple.append(coords)
         coords = list(coords)
         if appf != "darkgray":
-            applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf))
+            if not spice:
+                applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf))
+            else:
+                applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf,outline="orange",width=2))
         else:
             applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf,outline="lightgray",width=2))
 totalcoins = 0
 
 def move():
-    luckyapple(False)
-    global paused, rea, avsha, x, y, speed, totalcoins, direction, die, score, gridsize, cla, g, dead, players, invin, dead2, player1dead, totalscore, appleid, applebody, applet, appf
+    if not pass2.get() == "yes2":
+        luckyapple(False)
+    global paused, picked, rea, avsha, x, y, speed, totalcoins, direction, die, score, gridsize, cla, g, dead, players, invin, dead2, player1dead, totalscore, appleid, applebody, applet, appf
     if die != 0:
         die -= 1
     if direction == "u":
@@ -1294,6 +1605,7 @@ def move():
     x.pop()
     y.pop()
     game.delete("square")
+    game.delete("square3")
 
     for i in range(len(applebody)):
         if apple[i-1] in list(zip(x,y)):
@@ -1311,12 +1623,14 @@ def move():
                 apple.pop(i-1)
                 appleid.pop(i-1)
                 value = applet.pop(i-1)
+                sp = applesp.pop(i-1)
                 die += 1
                 scorep = 1
                 if value == "r":
                     x.append(x[len(x)-1])
                     y.append(y[len(y)-1])
                     totalcoins += 2
+                    picked = "red"
                 elif value == "y":
                     for i in range(5):
                         x.append(x[len(x)-1])
@@ -1324,17 +1638,21 @@ def move():
                     totalcoins += 10
                     die += 5
                     scorep = 5
+                    picked = "yellow"
                 elif value == "b":
-                    for i in range(20):
+                    for i in range(15):
                         x.append(x[len(x)-1])
                         y.append(y[len(y)-1])
                     totalcoins += 40
                     die += 20
-                    scorep = 20
+                    scorep = 15
+                    picked = "blue"
                 elif value == "s":
                     avsha = True
                     rea.config(text="press f to shadow")
-                    
+                    picked = "gray"
+                if sp == "yes":
+                    threading.Thread(target=lambda: spice("{}s".format(value))).start()
             else:
                 game.delete(appleid[i-1])
                 game.delete(applebody[i-1])
@@ -1342,6 +1660,7 @@ def move():
                 apple.pop(i-1)
                 appleid.pop(i-1)
                 value = applet.pop(i-1)
+                sp = applesp.pop(i-1)
                 if len(x) > 10:
                     for i in range(5):
                         x.pop()
@@ -1355,11 +1674,13 @@ def move():
                 threading.Thread(target=poison).start()
             placeapple()
     if luckyc in list(zip(x,y)):
-        luckyapple(True)
+        if not pass2.get() == "yes2":
+            luckyapple(True)
         if diff == 1:
             e = random.randint(1,3)
             if e == 1:
                 game.delete("square")
+                game.delete("square3")
                 if not diff == "1":
                     coinee()
                 if totalscore[0] > highscore:
@@ -1373,10 +1694,12 @@ def move():
                 totalcoins += 20
                 die += totalscore[0]
                 scorep = totalscore[0]
+                picked = "purple"
         else:
             e = random.randint(1,3)
             if e == 1:
                 game.delete("square")
+                game.delete("square3")
                 if not diff == "1":
                     coinee()
                 if totalscore[0] > highscore:
@@ -1390,6 +1713,7 @@ def move():
                 totalcoins += 20
                 die += totalscore[0]
                 scorep = totalscore[0]
+                picked = "purple"
                 
     try:
         totalscore[0] += scorep
@@ -1409,7 +1733,8 @@ def move():
     for i in bombcc:
         if i[2] and not shadowed:
             count = 0
-            for z in range(40):
+            for z in range(41):
+                z -= 1
                 count += 1
                 ee = (i[0],count)
                 body = list(zip(x,y))
@@ -1421,7 +1746,8 @@ def move():
                     messagebox.showinfo(title="you died!",message="you were burned by a laser!")
                     os.execl(python, python, *sys.argv)
             count = 0
-            for z in range(40):
+            for z in range(41):
+                z -= 1
                 count += 1
                 ee = (count,i[1])
                 body = list(zip(x,y))
@@ -1535,6 +1861,7 @@ applet = []
 apple = []
 applebody = []
 appleid = []
+applesp = []
  
 x = [int(round(gridsize/2))]
 y = [int(round(gridsize/2))]
@@ -1602,7 +1929,7 @@ for i in range(len(x)):
  
 if pass2.get() == "true":
     placeapple(five=True)
-else:
+elif not pass2.get() == "yes2":
     if ton:
         for i in range(12000):
             placeapple()
