@@ -372,10 +372,10 @@ def quest():
     nwe.overrideredirect(True)
     nwe.config(bg=back_ground)
     Label(nwe,text="ᙃᙀᙁᘜᙓOᙁ",fg="green",bg=back_ground,font=("Lucida Console","80")).pack(pady=40)
-    yes1 = not highscore >= 100
+    yes1 = not highscore >= 80
     yes2 =  not int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) == 8
     if yes1:
-        Label(nwe,text="reach a score of 100 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
+        Label(nwe,text="reach a score of 80 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
     if yes1 and yes2:
         Label(nwe,text="and",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
     if yes2:
