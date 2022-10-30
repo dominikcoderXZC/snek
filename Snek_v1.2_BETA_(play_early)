@@ -116,6 +116,17 @@ if not os.path.exists(os.path.dirname(os.path.realpath(__file__))+"\.data"):
 """
 )
 
+def lightdark():
+    with open(__file__, 'r') as file:
+        filedata = file.read()
+
+    # Replace the target string
+    filedata = filedata.replace('ram', 'abcd')
+
+    # Write the file out again
+    with open('file.txt', 'w') as file:
+        file.write(filedata)
+
 if time.strftime("%A") != open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[3][1:]:
     temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
     temp2[3] = time.strftime("#%A") + "\n"
@@ -372,10 +383,10 @@ def quest():
     nwe.overrideredirect(True)
     nwe.config(bg=back_ground)
     Label(nwe,text="ᙃᙀᙁᘜᙓOᙁ",fg="green",bg=back_ground,font=("Lucida Console","80")).pack(pady=40)
-    yes1 = not highscore >= 80
+    yes1 = not highscore >= 100
     yes2 =  not int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) == 8
     if yes1:
-        Label(nwe,text="reach a score of 80 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
+        Label(nwe,text="reach a score of 100 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
     if yes1 and yes2:
         Label(nwe,text="and",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
     if yes2:
@@ -588,7 +599,7 @@ la2.set(True)
 mode1 = data1["mode"]
 
 def settings2():
-    global diff, tos, la, la2, mode1
+    global diff, tos, la, la2, mode1, modela
     def save():
         data1["mode"] = mode1
         temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
@@ -610,8 +621,8 @@ def settings2():
     e2221 = Checkbutton(f22,variable=la,bg="#252525",fg="green",cursor="dot")
     e2221.pack()
     Label(f33,text="eyes enabled",fg="green",bg="#252525",font=("Lucida Console","10")).pack(side=LEFT)
-    e2221 = Checkbutton(f33,variable=la2,bg="#252525",fg="green",cursor="dot")
-    e2221.pack()
+    e22212 = Checkbutton(f33,variable=la2,bg="#252525",fg="green",cursor="dot")
+    e22212.pack()
     Button(f,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=lambda: [save(),nwe2.destroy()]).pack(side=LEFT,padx=25)
     f11 = Label(nwe2,text="difficulty: easy",fg="green",bg="#252525",font=("Lucida Console","10"))
     f11.pack()
@@ -964,7 +975,7 @@ def start():
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
                     highlightthickness=3,
-                    command=lambda: event(),
+                    command=lambda: messagebox.showinfo(title="sorry :(",message="this gamemode is currently unavailable,\nbut will be in update 1.3\n\n(use code MEGAUPDATE in the shop for a free skin! *wink wink*"),
                     fg="#ffffff",
                     borderwidth=4,
                     highlightcolor="#ffffff",
