@@ -74,6 +74,7 @@
 
 import os, io, time, random, sys
 from tkinter import messagebox
+from tokenize import cookie_re
 
 try:
     # For Python 3.0 and later
@@ -207,7 +208,7 @@ def coinee():
     data1["items"][0] = 1
     temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
     temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
-    temp2[1] = "#" + str(int(money) + int(totalcoins)) + "\n"
+    temp2[1] = "#" + str(int(money) + int(totalcoins*2)) + "\n"
     for i in temp2:
         
         temp.write(i)
@@ -384,13 +385,13 @@ def quest():
     nwe.config(bg=back_ground)
     Label(nwe,text="ᙃᙀᙁᘜᙓOᙁ",fg="green",bg=back_ground,font=("Lucida Console","80")).pack(pady=40)
     yes1 = not highscore >= 100
-    yes2 =  not int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) == 8
+    yes2 =  not int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) >= 8
     if yes1:
         Label(nwe,text="reach a score of 100 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
     if yes1 and yes2:
         Label(nwe,text="and",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
     if yes2:
-        Label(nwe,text="max out apple upgrade to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
+        Label(nwe,text="buy 8 apple upgrades to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
     if not yes1 and not yes2:
         if not eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[7][1:]):
             root.withdraw()
@@ -825,8 +826,8 @@ def shop():
     def appla():
         global money, temp, temp2 
         apples = int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:])
-        if money >= 500 and not apples == 8:
-            money -= 500
+        if money >= 10 and not apples == 15:
+            money -= 10
             temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
             temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
             temp2[5] = "#" + str(apples+1) + "\n"
@@ -870,7 +871,7 @@ def shop():
     ga1.create_oval(13,13,40,40,fill='red',outline='darkred', width=2)
 
     ga1.pack(side=TOP)
-    ga2 = Label(ga,text="500\n({}/8)".format(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:2]),fg="yellow",bg="#1D1D1D",font=("Lucida Console","10"))
+    ga2 = Label(ga,text="500\n({}/15)".format(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:].replace("\n","")),fg="yellow",bg="#1D1D1D",font=("Lucida Console","10"))
     ga2.pack()
     ga3 = Button(ga,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: appla())
     ga3.pack()
@@ -1366,23 +1367,23 @@ def printsnek(x11,x22,x33,x44, ie):
     elif spiced:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="red",width=2)
     elif data1["eq"] == 0:
-        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green")
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green",outline="")
     elif data1["eq"] == 1:
-        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light green")
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light green",outline="")
     elif data1["eq"] == 2:
-        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light blue")
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light blue",outline="")
     elif data1["eq"] == 3:
-        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="pink")
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="pink",outline="")
     elif data1["eq"] == 4:
-        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange")
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="")
     elif data1["eq"] == 5:
-        game.create_oval(x11,x22,x33,x44,tags="square",fill="green")
+        game.create_oval(x11,x22,x33,x44,tags="square",fill="green",outline="")
     elif data1["eq"] == 6:
-        game.create_oval(x11,x22,x33,x44,tags="square",fill="gray")
+        game.create_oval(x11,x22,x33,x44,tags="square",fill="gray",outline="")
     elif data1["eq"] == 7:
-        game.create_oval(x11,x22,x33,x44,tags="square",fill="white")
+        game.create_oval(x11,x22,x33,x44,tags="square",fill="white",outline="")
     elif data1["eq"] == 8:
-        game.create_oval(x11,x22,x33,x44,tags="square",fill="orange")
+        game.create_oval(x11,x22,x33,x44,tags="square",fill="orange",outline="")
     elif data1["eq"] == 9:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green",outline='white', width=2)
     elif data1["eq"] == 10:
@@ -1479,7 +1480,7 @@ def luckyapple(starting):
         while run == True:
             body = tuple(zip(x,y))
             luckyc = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
-            if not luckyc in body or 0 in luckyc or gridsize-1 in luckyc:
+            if not luckyc in body or 39 in luckyc:
                 run = False
         luckyr = game.create_rectangle(luckyc[0]*g,luckyc[1]*g,luckyc[0]*g+g,luckyc[1]*g+g,tags="lucky",fill="purple")
         luckyt = game.create_text(luckyc[0]*g+6,luckyc[1]*g+6,text="?",tags="lucky",fill="white")
@@ -1496,7 +1497,7 @@ def placeapple(five=False):
             while run == True:
                 coords = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
                 body = tuple(zip(x,y))
-                if not coords in body or 0 in coords or not gridsize-1 in coords:
+                if not coords in body or 39 in coords:
                     run = False
             appf = "darkgray"
             applet.append("s")
@@ -1513,7 +1514,7 @@ def placeapple(five=False):
             while run == True:
                 coords = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
                 body = tuple(zip(x,y))
-                if not coords in body or 0 in coords or not gridsize-1 in coords:
+                if not coords in body or 39 in coords:
                     run = False
             if random.randint(0,10) == 5:
                 spice = True
@@ -1534,7 +1535,7 @@ def placeapple(five=False):
             while run == True:
                 coords = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
                 body = tuple(zip(x,y))
-                if not coords in body or 0 in coords or not gridsize-1 in coords:
+                if not coords in body or 39 in coords:
                     run = False
             appf = "yellow"
             applet.append("y")
@@ -1555,7 +1556,7 @@ def placeapple(five=False):
             while run == True:
                 coords = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
                 body = tuple(zip(x,y))
-                if not coords in body:
+                if not coords in body or 39 in coords:
                     run = False
             appf = "red"
             applet.append("r")
@@ -1621,7 +1622,7 @@ def move():
 
     for i in range(len(applebody)):
         if apple[i-1] in list(zip(x,y)):
-            if random.randint(1,10) != 2 or len(x) < 8:
+            if random.randint(1,15) != 2 or len(x) < 8:
                 if inc:
                     if diff == "5":
                         speed -= 10
@@ -1647,7 +1648,7 @@ def move():
                     for i in range(5):
                         x.append(x[len(x)-1])
                         y.append(y[len(y)-1])
-                    totalcoins += 10
+                    totalcoins += 8
                     die += 5
                     scorep = 5
                     picked = "yellow"
@@ -1655,7 +1656,7 @@ def move():
                     for i in range(15):
                         x.append(x[len(x)-1])
                         y.append(y[len(y)-1])
-                    totalcoins += 40
+                    totalcoins += 35
                     die += 20
                     scorep = 15
                     picked = "blue"
@@ -1737,7 +1738,7 @@ def move():
  
     player1dead.config(text=" {}".format(totalscore[0]))
 
-    coinss.config(text=" {}".format(totalcoins))
+    coinss.config(text=" {}".format(totalcoins*2))
 
     for i in range(len(x)):
         i += 1
@@ -1987,8 +1988,20 @@ ca = Label(c1d,text="""
 █▄▄ █▄█ █ █ ▀█ ▄█ ▄""",fg="white",bg="#1D1D1D",font=("Lucida Console","6"))
 ca.pack(side=LEFT)
 
-coinss = Label(c1d,text="coins: 0",fg="white",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
+coinss = Label(c1d,text="coins: 0",fg="yellow",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
 coinss.pack(side=RIGHT)
+
+def loopb():
+    while True:
+        boost.config(fg="yellow")
+        time.sleep(0.3)
+        boost.config(fg="green")
+        time.sleep(0.3)
+
+boost = Label(allt,text="DOUBLE MONEY EVENT ACTIVE",fg="green",bg="#1D1D1D",relief=FLAT)
+boost.pack(pady=10)
+
+threading.Thread(target=loopb).start()
  
 rea = Label(deadumm,text="",fg="white",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
 rea.pack(pady=20)
