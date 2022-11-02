@@ -826,8 +826,8 @@ def shop():
     def appla():
         global money, temp, temp2 
         apples = int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:])
-        if money >= 10 and not apples == 15:
-            money -= 10
+        if money >= 500 and not apples == 15:
+            money -= 500
             temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
             temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
             temp2[5] = "#" + str(apples+1) + "\n"
