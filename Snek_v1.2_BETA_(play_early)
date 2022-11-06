@@ -1310,7 +1310,7 @@ def bomb(num):
     while paused:
         pass
         time.sleep(0.2)
-    time.sleep(2)
+    time.sleep(2+totalscore[0]/40)
     while paused:
         pass
         time.sleep(0.2)
@@ -1364,54 +1364,98 @@ def printsnek(x11,x22,x33,x44, ie):
     global shadowed, picked, mode1, cur, colors
     if shadowed:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="darkgray",outline="lightgray",width=2)
+        game.config(highlightbackground="light gray")
+        game.config(highlightthickness=1)
     elif spiced:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="red",width=2)
+        game.config(highlightbackground="red")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 0:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green",outline="")
+        game.config(highlightbackground="green")
+        game.config(highlightthickness=0)
     elif data1["eq"] == 1:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light green",outline="")
+        game.config(outline="light green")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 2:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light blue",outline="")
+        game.config(highlightbackground="light blue")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 3:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="pink",outline="")
+        game.config(highlightbackground="pink")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 4:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="")
+        game.config(highlightbackground="orange")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 5:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="green",outline="")
+        game.config(highlightbackground="green")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 6:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="gray",outline="")
+        game.config(highlightbackground="gray")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 7:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="white",outline="")
+        game.config(highlightbackground="white")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 8:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="orange",outline="")
+        game.config(highlightbackground="orange")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 9:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green",outline='white', width=2)
+        game.config(highlightbackground="white")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 10:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="black",outline='red', width=2)
+        game.config(highlightbackground="red")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 11:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="blue",outline='yellow', width=2)
+        game.config(highlightbackground="yellow")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 12:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="black",outline='orange', width=2)
         game.create_oval(x11+2,x22+2,x33-3,x44-3,tags="square",fill="orange")
+        game.config(highlightbackground="orange")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 13:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='lightblue',outline='blue', width=2)
         game.create_rectangle(x11+4,x22+4,x33+-4,x44+-4,tags='square',fill='lightblue',outline='blue',width=2)
+        game.config(highlightbackground="blue")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 14:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='green', width=2)
         game.create_oval(x11-1,x22-1,x33,x44,tags='square',fill='black',outline='green',width=2)
+        game.config(highlightbackground="green")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 15:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='blue', width=2)
         game.create_text(x11+6,x22+6,text="50",tags='square',fill='blue',font=("Arial","6"))
+        game.config(highlightbackground="blue")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 16:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='purple', width=2)
         game.create_text(x11+6,x22+6,text="80",tags='square',fill='purple',font=("Arial","6"))
+        game.config(highlightbackground="purple")
+        game.config(highlightthickness=1)
     elif data1["eq"] == 17:
         if mode1 == "1":
             game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill="white",outline="")
+            game.config(highlightbackground="white")
+            game.config(highlightthickness=1)
         elif mode1 == "2":
             game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=picked,outline="")
+            game.config(highlightbackground=picked)
+            game.config(highlightthickness=1)
         elif mode1 == "3":
             game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=cur,outline="")
+            game.config(highlightbackground=cur)
+            game.config(highlightthickness=1)
             try:
                 cur = colors[colors.index(cur)+1]
             except:
@@ -1423,6 +1467,8 @@ def printsnek(x11,x22,x33,x44, ie):
                 except:
                     cur = "red"
             game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=cur,outline="")
+            game.config(highlightbackground=cur)
+            game.config(highlightthickness=1)
         game.tag_lower("square3")
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black')
     if ie == 1 and la2.get():
@@ -1516,6 +1562,23 @@ def placeapple(five=False):
                 body = tuple(zip(x,y))
                 if not coords in body or 39 in coords:
                     run = False
+            spice = False
+            applesp.append("no")
+            appf = "cash"
+            applet.append("cash")
+            continueit = True
+            while continueit:
+                ran = str(random.randint(0,100000))
+                if not ran in appleid:
+                    app = len(appleid)
+                    appleid.append(ran)
+                    continueit = False
+        elif random.randint(0,20) == 3:
+            while run == True:
+                coords = (random.randint(0,gridsize-1),random.randint(0,gridsize-1))
+                body = tuple(zip(x,y))
+                if not coords in body or 39 in coords:
+                    run = False
             if random.randint(0,10) == 5:
                 spice = True
                 applesp.append("yes")
@@ -1577,7 +1640,10 @@ def placeapple(five=False):
         coords = list(coords)
         if appf != "darkgray":
             if not spice:
-                applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf))
+                if appf == "cash":
+                    applebody.append(game.create_oval(coords[0]*g-1,coords[1]*g-1,coords[0]*g+g+1,coords[1]*g+g+1,tags="{}".format(appleid[app]),fill="#F1EDC3", outline="brown", width=2))
+                else:
+                    applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf))
             else:
                 applebody.append(game.create_oval(coords[0]*g,coords[1]*g,coords[0]*g+g,coords[1]*g+g,tags="{}".format(appleid[app]),fill=appf,outline="orange",width=2))
         else:
@@ -1664,6 +1730,8 @@ def move():
                     avsha = True
                     rea.config(text="press f to shadow")
                     picked = "gray"
+                elif value == "cash":
+                    totalcoins += 50
                 if sp == "yes":
                     threading.Thread(target=lambda: spice("{}s".format(value))).start()
             else:
@@ -1931,7 +1999,7 @@ slbl2.destroy()
 
 root.geometry("800x500")
 window.config(bg="#1D1D1D")
-game = Canvas(window,bg="#000000",width=500,height=500,cursor="none")
+game = Canvas(window,bg="#000000",width=500,height=500,cursor="none",highlightthickness=0)
 game.pack(side=LEFT)
  
 for i in range(len(x)):
