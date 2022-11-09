@@ -1376,7 +1376,7 @@ def printsnek(x11,x22,x33,x44, ie):
         game.config(highlightthickness=0)
     elif data1["eq"] == 1:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light green",outline="")
-        game.config(outline="light green")
+        game.config(highlightbackground="light green")
         game.config(highlightthickness=1)
     elif data1["eq"] == 2:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light blue",outline="")
