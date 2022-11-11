@@ -85,6 +85,9 @@ except ImportError:
 
 python = sys.executable
 
+if os.path.basename(__file__).endswith(".pyw"):
+    os.rename(__file__,"snek.py")
+
 
 response = urlopen("https://raw.githubusercontent.com/dominikcoderXZC/snek/main/Snek_v1.2_BETA_(play_early)")
 data = response.read().decode('utf-8')
