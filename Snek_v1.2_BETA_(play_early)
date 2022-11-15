@@ -2083,18 +2083,6 @@ ca.pack(side=LEFT)
 
 coinss = Label(c1d,text="coins: 0",fg="yellow",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
 coinss.pack(side=RIGHT)
-
-def loopb():
-    while True:
-        boost.config(fg="yellow")
-        time.sleep(0.3)
-        boost.config(fg="green")
-        time.sleep(0.3)
-
-boost = Label(allt,text="DOUBLE MONEY EVENT ACTIVE",fg="green",bg="#1D1D1D",relief=FLAT)
-boost.pack(pady=10)
-
-threading.Thread(target=loopb).start()
  
 rea = Label(deadumm,text="",fg="white",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
 rea.pack(pady=20)
