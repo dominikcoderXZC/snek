@@ -917,9 +917,30 @@ players = 1
 newslbl = None
 slbl2 = None
 
+button1a = None
+
+votecolor = "yellow"
+
+def loopvote():
+    global button1a,votecolor
+    try:
+        button1a.config(fg=votecolor)
+        if votecolor == "yellow":
+            votecolor = "green"
+        else:
+            votecolor = "yellow"
+        window.after(300,loopvote)
+    except Exception as e:
+        pass
+    
 
 def start():
-    global passed, snake, gridsize, speed, cla, score, inc, invin, pass2, players, ton, newslbl, slbl2
+    global passed, snake, gridsize, speed, cla, score, inc, invin, pass2, players, ton, newslbl, slbl2, button1a
+
+    def vote():
+        if messagebox.askokcancel(title="vote?",message="this will forward you to a form,\nare you sure you want to continue?"):
+            import webbrowser
+            webbrowser.open("https://forms.gle/mFMFZmSAekCqrKjz8")
  
     if eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
 
@@ -972,18 +993,19 @@ def start():
                     highlightcolor="#ffffff",
                     )
     button1.pack(side=LEFT)
-    button1a = Button(f77,text="EVENTS",
+    button1a = Button(f77,text="VOTE",
                     font=("Terminal","30"),
                     height=1,
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
                     highlightthickness=3,
-                    command=lambda: messagebox.showinfo(title="sorry :(",message="this gamemode is currently unavailable,\nbut will be in update 1.3\n\n(use code MEGAUPDATE in the shop for a free skin! *wink wink*"),
+                    command=lambda: vote(),
                     fg="#ffffff",
                     borderwidth=4,
                     highlightcolor="#ffffff",
                     )
+    loopvote()
     button1a.pack(side=RIGHT)
     button2 = Button(window,text="BLACK MARKET",
                     height=1,
