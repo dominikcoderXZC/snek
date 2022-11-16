@@ -211,7 +211,7 @@ def coinee():
     data1["items"][0] = 1
     temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
     temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
-    temp2[1] = "#" + str(int(money) + int(totalcoins*2)) + "\n"
+    temp2[1] = "#" + str(int(money) + int(totalcoins)) + "\n"
     for i in temp2:
         
         temp.write(i)
@@ -2081,7 +2081,7 @@ ca = Label(c1d,text="""
 █▄▄ █▄█ █ █ ▀█ ▄█ ▄""",fg="white",bg="#1D1D1D",font=("Lucida Console","6"))
 ca.pack(side=LEFT)
 
-coinss = Label(c1d,text="coins: 0",fg="yellow",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
+coinss = Label(c1d,text="coins: 0",fg="white",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
 coinss.pack(side=RIGHT)
  
 rea = Label(deadumm,text="",fg="white",bg="#1D1D1D",font=("Comic Sans MS","15","bold"))
