@@ -1538,8 +1538,6 @@ picked = "white"
 colors = ["red","orange","yellow","lightgreen","green","blue","purple","pink"]
 cur = "red"
 
-data1["eq"] = 18
-
 def printsnek(x11,x22,x33,x44, ie):
     global shadowed, picked, mode1, cur, colors
     if shadowed:
