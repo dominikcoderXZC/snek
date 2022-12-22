@@ -85,7 +85,7 @@ if os.path.basename(__file__).endswith(".pyw"):
 
 response = urlopen("https://raw.githubusercontent.com/dominikcoderXZC/snek/main/Snek_v1.2_BETA_(play_early)")
 data = response.read().decode('utf-8')
-if open(__file__,"r").read() != data:
+if open(__file__,"r",encoding="utf-8").read() != data:
     messagebox.showinfo(title="update",message="a new update is available, press ok to update")
     open(__file__,"w",encoding='utf-8').write(data)
     os.execl(python, python, *sys.argv)
