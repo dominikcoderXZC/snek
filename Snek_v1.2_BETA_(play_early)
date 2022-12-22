@@ -85,7 +85,7 @@ if os.path.basename(__file__).endswith(".pyw"):
 
 response = urlopen("https://raw.githubusercontent.com/dominikcoderXZC/snek/main/Snek_v1.2_BETA_(play_early)")
 data = response.read().decode('utf-8')
-if open(__file__,"r",encoding="utf-8").read() != data:
+if open(__file__,"r").read() != data:
     messagebox.showinfo(title="update",message="a new update is available, press ok to update")
     open(__file__,"w",encoding='utf-8').write(data)
     os.execl(python, python, *sys.argv)
@@ -158,6 +158,7 @@ if len(data1["items"]) != 19:
     for i in temp2:
         temp.write(i)
         temp.flush()
+    temp.close()
 
 ish = eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[4][1:])
 
@@ -265,20 +266,19 @@ bg.place(x=0,y=0)
 
 def snow():
     global bg
-    x = random.randint(1,1000)
-    ye = bg.create_oval(x-2,-2,x+2,2,fill="white")
+    ye = bg.create_line(0,-2,1000,2,fill="#171717",width=5)
     e = 0
     def movesnow(ea):
         bg.move(ye,0,1)
         ea += 1
         if not ea > 900:
-            window.after(10,movesnow,ea+1)
+            window.after(5,movesnow,ea+1)
         else:
             bg.delete(ye)
     window.after(1,movesnow,e)
 def spawnsn():
-    window.after(10,snow)
-    window.after(random.randint(1,100),spawnsn)
+    window.after(1,snow)
+    window.after(500,spawnsn)
 
 window.after(1,spawnsn)
 
@@ -414,73 +414,6 @@ def tos():
     Button(nwe,text="close",fg="green",bg="#252525",font=("Lucida Console","20"),command=lambda: [nwe.destroy(),settings2()]).pack(side=BOTTOM)
     nwe.after(10,top)
 
-def quest():
-    nwe = Toplevel()
-    def top():
-        nwe.attributes("-topmost",True)
-        nwe.geometry("800x425+{}+{}".format(str(int(root.winfo_x()+root.winfo_width()/2)-400),str(int(root.winfo_y()+root.winfo_height()/2)-225)))
-        nwe.after(10,top)
-    nwe.overrideredirect(True)
-    nwe.config(bg=back_ground)
-    Label(nwe,text="ᙃᙀᙁᘜᙓOᙁ",fg="green",bg=back_ground,font=("Lucida Console","80")).pack(pady=40)
-    yes1 = not highscore >= 100
-    yes2 =  not int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:]) >= 8
-    if yes1:
-        Label(nwe,text="reach a score of 100 to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
-    if yes1 and yes2:
-        Label(nwe,text="and",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
-    if yes2:
-        Label(nwe,text="buy 8 apple upgrades to enter...",fg="green",bg=back_ground,font=("Lucida Console","15")).pack()
-    if not yes1 and not yes2:
-        if not eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[7][1:]):
-            root.withdraw()
-            nwe.withdraw()
-            messagebox.showinfo(title="???",message="Hello traveler...")
-            messagebox.showinfo(title="???",message="I was waiting for you here")
-            messagebox.showinfo(title="???",message="Watching your every move")
-            messagebox.showinfo(title="???",message="Summoning in lasers to stop you")
-            messagebox.showinfo(title="???",message="Yes, it was me spawning those lasers")
-            messagebox.showinfo(title="???",message="Yet, nothing seemed to stop you...")
-            messagebox.showinfo(title="???",message="I have a couple of things for you")
-            messagebox.showinfo(title="???",message="After all, you have proved yourself back there")
-            messagebox.showinfo(title="???",message="Let's get to the point")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="My name is s̸t̶e̷m̵p̷i̴n̴o̴")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="My job is to get you going")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="If you need anything, then i'm always here..")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="Unless im out causing commotion in others gameplay")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="I make life hard for others")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="But now that you have met me, keep me a secret")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="I will give you something in return. Deal?")
-            messagebox.showinfo(title="s̸t̶e̷m̵p̷i̴n̴o̴",message="I knew you would agree after all...")
-            root.deiconify()
-            nwe.deiconify()
-            global temp, temp2, data1
-            temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
-            temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
-            data1["items"][16] = 1
-            temp2[7] = "#" + "True" + "\n"
-            temp2[0] = "#" + str(data1) + "\n"
-            for i in temp2:
-                temp.write(i)
-                temp.flush()
-            cv = Canvas(nwe,width=50,height=50,bg="#000000")
-            cv.pack()
-            cv.create_rectangle(11,11,42,42,fill="white")
-            cv.create_rectangle(13,13,40,40,fill="black")
-            cv.create_text(47,7,text="G",fill="white")
-            Label(nwe,text="skin added\nto items!",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
-        else:
-            cv = Canvas(nwe,width=50,height=50,bg="#000000")
-            cv.pack()
-            cv.create_rectangle(11,11,42,42,fill="white")
-            cv.create_rectangle(13,13,40,40,fill="black")
-            cv.create_text(47,7,text="G",fill="white")
-            Label(nwe,text="skin added\nto items!",fg="green",bg=back_ground,font=("Lucida Console","15")).pack(pady=30)
-            
-
-    Button(nwe,text="close",fg="green",bg=back_ground,font=("Lucida Console","20"),command=lambda: nwe.destroy()).pack(side=BOTTOM)
-    nwe.after(10,top)
-
 def item():
     global toss, settings2
     nwe = Toplevel()
@@ -528,7 +461,7 @@ def item():
         elif num == 16:
             return ["""re2[i-1].create_rectangle(13,13,40,40,tags='square',fill='black',outline='purple', width=2)""","""re2[i-1].create_text(26,25,font=("Arial","15"),text="80",tags='square',fill='purple')"""]
         elif num == 17:
-            return ["""re2[i-1].create_rectangle(11,11,42,42,tags='square',fill='white')""","""re2[i-1].create_rectangle(13,13,40,40,tags='square',fill='black')""","""re2[i-1].create_text(47,7,font=("Arial","10"),text="G",tags='square',fill='white')"""]
+            return ["""print("THE DUNGEON SKIN HAS BEEN PERMENANTLY REMOVED FROM THE GAME")"""]
         elif num == 18:
             return ["""re2[i-1].create_rectangle(11,11,42,42,tags='square',fill='red',outline="white",width=2)""","""re2[i-1].create_line(40,13,13,40,tags='square',fill='white',width=3)"""]
         elif num == 19:
@@ -583,7 +516,7 @@ def item():
         if len(f2[len(f2)-1].winfo_children()) == 4:
             f2.append(Frame(f22, bg="#252525"))
             f2[len(f2)-1].pack(pady=10)
-        if data1["items"][i-1] == 1:
+        if data1["items"][i-1] == 1 and not i == 17:
             re[i-1] = Frame(f2[len(f2)-1], bg='#252525')
             re[i-1].pack(side=LEFT,padx=20)
             re2[i-1] = Canvas(re[i-1],bg='black',width=50,height=50)
@@ -982,20 +915,6 @@ def shop():
     ga3 = Button(ga,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: appla())
     ga3.pack()
 
-    if not eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
-        ka = Frame(f33,bg="#1D1D1D")
-        ka.pack(side=LEFT,padx=20)
-
-        ka1 = Canvas(ka,bg='black',width=50,height=50)
-
-        ka1.create_text(27,30,text="?",fill='white',font=("Lucida Console","30"))
-
-        ka1.pack(side=TOP)
-        ka2 = Label(ka,text="3000\n",fg="yellow",bg="#1D1D1D",font=("Lucida Console","10"))
-        ka2.pack()
-        ka3 = Button(ka,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: kapp())
-        ka3.pack()
-
     fa = Frame(f33,bg="#1D1D1D")
     fa.pack(side=LEFT,padx=50)
 
@@ -1046,14 +965,22 @@ button1a = None
 
 votecolor = "yellow"
 
+cstext = """a new way to install games...
+
+WeeklyGameLauncher will be a launcher, designed
+to give you hundreds of free games, with new games
+coming out every week. the launcher will come out
+in january, with 10+ games ready to install (more
+coming every week). """
+
 def loopvote():
     global button1a,votecolor
     try:
         button1a.config(fg=votecolor)
-        if votecolor == "yellow":
+        if votecolor == "blue":
             votecolor = "green"
         else:
-            votecolor = "yellow"
+            votecolor = "blue"
         window.after(300,loopvote)
     except Exception as e:
         pass
@@ -1071,48 +998,53 @@ def typesplash():
     global stt, c, txt, index
     index += 1
     c = c + txt[index-1]
-    stt.config(text=c)
+    try:
+        stt.config(text=c)
+    except:
+        pass
     if not c == txt:
         window.after(50,typesplash)
 
 
 def start():
-    global passed, snake, gridsize, speed, cla, score, inc, invin, pass2, players, ton, newslbl, slbl2, button1a, splash, stt, ts
+    global passed, snake, gridsize, cstext, speed, cla, score, inc, invin, pass2, players, ton, newslbl, slbl2, button1a, splash, stt, ts
     if eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
 
-        newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="white",bg="#171717",relief=FLAT,command=news2)
+        newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=news2)
         newslbl.pack(side=LEFT)
         
-        whatlbl = Button(text="???",font=("Lucida Console","30"),fg="white",bg="#171717",relief=FLAT,command=quest)
+        whatlbl = Button(text="???",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=quest)
         whatlbl.pack(side=LEFT)
  
-        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="white",bg="#171717",relief=FLAT,command=settings2)
+        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,command=settings2)
         slbl2.pack(side=RIGHT)
     else:
-        newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="white",bg="#171717",relief=FLAT,command=news2)
+        newslbl = Button(text="NEWS",font=("Lucida Console","30"),fg="green",bg="#171717",relief=FLAT,command=news2)
         newslbl.pack(side=LEFT)
 
-        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="white",bg="#171717",relief=FLAT,command=settings2)
+        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,command=settings2)
         slbl2.pack(side=RIGHT)
  
     pass2 = StringVar()
     pass2.set("no")
     passed = StringVar()
     logo = Frame(window,bg="#1D1D1D")
-    logo.pack(pady=35)
+    logo.pack(pady=30)
     logof = Frame(logo,bg="#1D1D1D")
     logof.pack()
-    Label(logof,text="""█▀
-▄█""",font=("Lucida Console","30"),fg="red",bg="#1D1D1D").pack(side=LEFT,padx=5)
-    Label(logof,text="""█▄ █
-█ ▀█""",font=("Lucida Console","30"),fg="white",bg="#1D1D1D").pack(side=LEFT,padx=5)
+    #Label(logof,text="""█▀
+#▄█""",font=("Lucida Console","30"),fg="green",bg="#1D1D1D").pack(side=LEFT,padx=5)
+    #Label(logof,text="""█▄ █
+#█ ▀█""",font=("Lucida Console","30"),fg="white",bg="#1D1D1D").pack(side=LEFT,padx=5)
 
-    Label(logof,text="""▄▀█
-█▀█""",font=("Lucida Console","30"),fg="red",bg="#1D1D1D").pack(side=LEFT,padx=5)
-    Label(logof,text="""█▄▀
-█ █""",font=("Lucida Console","30"),fg="white",bg="#1D1D1D").pack(side=LEFT,padx=5)
-    Label(logof,text="""█▀▀
-██▄""",font=("Lucida Console","30"),fg="red",bg="#1D1D1D").pack(side=LEFT,padx=5)
+    #Label(logof,text="""▄▀█
+#█▀█""",font=("Lucida Console","30"),fg="red",bg="#1D1D1D").pack(side=LEFT,padx=5)
+    #Label(logof,text="""█▄▀
+#█ █""",font=("Lucida Console","30"),fg="white",bg="#1D1D1D").pack(side=LEFT,padx=5)
+    #Label(logof,text="""█▀▀
+#██▄""",font=("Lucida Console","30"),fg="red",bg="#1D1D1D").pack(side=LEFT,padx=5)
+    image = PhotoImage(data="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")
+    Label(logof,image=image,borderwidth=0).pack(side=LEFT)
     stt = Label(logo,text="",font=("Lucida Console","10"),fg="yellow",bg="#1D1D1D")
     stt.pack()
     typesplash()
@@ -1125,7 +1057,7 @@ def start():
                     bg="#1D1D1D",
                     highlightthickness=3,
                     command=lambda: passed.set("pass"),
-                    fg="#ffffff",
+                    fg="white",
                     borderwidth=4,
                     highlightcolor="#ffffff",
                     )
@@ -1145,14 +1077,14 @@ def start():
                     highlightcolor="#ffffff",
                     )
     button1.pack(side=LEFT)
-    button1a = Button(f77,text="VOTING\nRESULTS",
+    button1a = Button(f77,text="COMING\nSOOOON",
                     font=("Lucida Console","15"),
                     height=1,
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
                     highlightthickness=3,
-                    command=lambda: [messagebox.showinfo(title="winner...",message="And the winner is..."),messagebox.showinfo(title="winner...",message="Safe Zone!\n\nThe event will be implemented in a month or two (snek 1.3 update)\nying yang still has a chance of coming...")],
+                    command=lambda: [messagebox.showinfo(title="big news...",message=cstext)],
                     fg="#ffffff",
                     borderwidth=4,
                     highlightcolor="#ffffff",
@@ -1491,10 +1423,8 @@ def bomb(num):
     while paused:
         pass
         time.sleep(0.2)
-    line1 = game.create_line(bombc[0]*g+6,6,bombc[0]*g+6,506,fill="white", width=5,tags="bomb")
-    line2 = game.create_line(6,bombc[1]*g+6,506,bombc[1]*g+6,fill="white", width=5)
-    line1fes = game.create_line(bombc[0]*g+6,6,bombc[0]*g+6,506,fill="red", width=5,tags="bomb",dash=(20,20))
-    line2fes = game.create_line(6,bombc[1]*g+6,506,bombc[1]*g+6,fill="red", width=5,dash=(20,20))
+    line1 = game.create_line(bombc[0]*g+6,6,bombc[0]*g+6,506,fill="red", width=5,tags="bomb")
+    line2 = game.create_line(6,bombc[1]*g+6,506,bombc[1]*g+6,fill="red", width=5)
     game.tag_lower(line1)
     game.tag_lower(line2)
     if la.get():
@@ -1524,8 +1454,6 @@ def bomb(num):
     game.delete(bombr)
     game.delete(line1)
     game.delete(line2)
-    game.delete(line1fes)
-    game.delete(line2fes)
     if la.get():
         game.delete(line1t)
         game.delete(line2t)
@@ -1540,6 +1468,8 @@ cur = "red"
 
 def printsnek(x11,x22,x33,x44, ie):
     global shadowed, picked, mode1, cur, colors
+    if data1["eq"] == 17:
+        data1["eq"] = 0
     if shadowed:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="darkgray",outline="lightgray",width=2)
         game.config(highlightbackground="light gray")
@@ -1622,33 +1552,7 @@ def printsnek(x11,x22,x33,x44, ie):
         game.config(highlightbackground="purple")
         game.config(highlightthickness=1)
     elif data1["eq"] == 17:
-        if mode1 == "1":
-            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill="white",outline="")
-            game.config(highlightbackground="white")
-            game.config(highlightthickness=1)
-        elif mode1 == "2":
-            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=picked,outline="")
-            game.config(highlightbackground=picked)
-            game.config(highlightthickness=1)
-        elif mode1 == "3":
-            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=cur,outline="")
-            game.config(highlightbackground=cur)
-            game.config(highlightthickness=1)
-            try:
-                cur = colors[colors.index(cur)+1]
-            except:
-                cur = "red"
-        elif mode1 == "4":
-            if ie == 1:
-                try:
-                    cur = colors[colors.index(cur)+1]
-                except:
-                    cur = "red"
-            game.create_rectangle(x11-1,x22-1,x33+2,x44+2,tags='square3',fill=cur,outline="")
-            game.config(highlightbackground=cur)
-            game.config(highlightthickness=1)
-        game.tag_lower("square3")
-        game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black')
+        pass
     elif data1["eq"] == 18:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='red',outline="")
         game.create_line(x33-1,x22+1,x11+1,x44-1,tags='square',fill="white",width=4)
@@ -1702,6 +1606,59 @@ def printsnek(x11,x22,x33,x44, ie):
         
 
 spiced = False
+
+def restart():
+    global speed, x, y, g, die, dead, gridsize, inc, luckyc, luckyr, luckyt, bombcc, miscc, applet, apple, applebody, appleid, applesp
+    speed = 1
+    gridsize = 40
+    inc = True
+    
+    g = int(500/gridsize)
+
+    speed = int(float(speed) *100)
+    
+    dead = 0
+    dead2 = 0
+    
+    die = 1
+    die2 = 1
+
+    shadowed = False
+    avsha = False
+
+    x = [int(round(gridsize/2))]
+    y = [int(round(gridsize/2))]
+    
+    x2 = [int(round(gridsize/2))]
+    y2 = [int(round(gridsize/2))]
+
+    for i in appleid:
+        game.delete("all")
+
+    totalscore[0] = 1
+
+    applet = []
+    apple = []
+    applebody = []
+    appleid = []
+    applesp = []
+
+    if pass2.get() == "true":
+        placeapple(five=True)
+    elif not pass2.get() == "yes2":
+        if ton:
+            for i in range(12000):
+                placeapple()
+        elif players == 2:
+            for i in range(3):
+                placeapple()
+        else:
+            for i in range(int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:])):
+                placeapple()
+    
+    game.delete(apple)
+    
+  
 
 def spice(type):
     global spiced, speed
@@ -1974,8 +1931,11 @@ def move():
                     coinee()
                 if totalscore[0] > highscore:
                     writehs()
-                messagebox.showinfo(title="you died!",message="The peppermint chose death upon you!\nyou were out of luck")
-                os.execl(python, python, *sys.argv)
+                if messagebox.askyesno(title="you died!",message="The lucky block chose death upon you!\nyou were out of luck\n\ndo you want to restart?"):
+                    restart()
+                else:
+                    os.execl(python, python, *sys.argv)
+                    
             else:
                 for i in range(totalscore[0]):
                     x.append(x[len(x)-1])
@@ -1994,8 +1954,10 @@ def move():
                     coinee()
                 if totalscore[0] > highscore:
                     writehs()
-                messagebox.showinfo(title="you died!",message="The peppermint chose death upon you!\nyou were out of luck")
-                os.execl(python, python, *sys.argv)
+                if messagebox.askyesno(title="you died!",message="The lucky block chose death upon you!\nyou were out of luck\n\ndo you want to restart?"):
+                    restart()
+                else:
+                    os.execl(python, python, *sys.argv)
             else:
                 for i in range(totalscore[0]):
                     x.append(x[len(x)-1])
@@ -2033,8 +1995,10 @@ def move():
                         coinee()
                     if totalscore[0] > highscore:
                         writehs()
-                    messagebox.showinfo(title="you died!",message="you were burned by a candy cane laser!")
-                    os.execl(python, python, *sys.argv)
+                    if messagebox.askyesno(title="you died!",message="you were burned by a laser!\n\ndo you want to restart?"):
+                        restart()
+                    else:
+                        os.execl(python, python, *sys.argv)
             count = 0
             for z in range(41):
                 z -= 1
@@ -2046,8 +2010,10 @@ def move():
                         coinee()
                     if totalscore[0] > highscore:
                         writehs()
-                    messagebox.showinfo(title="you died!",message="you were burned by a candy cane laser!")
-                    os.execl(python, python, *sys.argv)
+                    if messagebox.askyesno(title="you died!",message="you were burned by a laser!\n\ndo you want to restart?"):
+                        restart()
+                    else:
+                        os.execl(python, python, *sys.argv)
 
     if not paused:
         window.after(speed,move)
