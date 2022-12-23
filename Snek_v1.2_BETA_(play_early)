@@ -692,42 +692,17 @@ def shop():
     bg2 = Canvas(nwe,highlightthickness=0,bg="#1D1D1D",width=1000,height=800)
     bg2.place(x=0,y=0)
 
-    def snow2():
-        try:
-            x = random.randint(1,1000)
-            ye = bg2.create_oval(x-2,-2,x+2,2,fill="white")
-            e = 0
-            def movesnow(ea):
-                try:
-                    bg2.move(ye,0,1)
-                    ea += 1
-                    if not ea > 900:
-                        window.after(10,movesnow,ea+1)
-                    else:
-                        bg2.delete(ye)
-                except:
-                    stop = True
-            window.after(1,movesnow,e)
-        except:
-            stop = True
-    def spawnsn2():
-        if not stop:
-            window.after(10,snow2)
-            window.after(random.randint(1,100),spawnsn2)
-
-    window.after(1,spawnsn2)
-
     Label(nwe,text="""
 ██████╗░██╗░░░░░░█████╗░░█████╗░██╗░░██╗  ███╗░░░███╗░█████╗░██████╗░██╗░░██╗███████╗████████╗
 ██╔══██╗██║░░░░░██╔══██╗██╔══██╗██║░██╔╝  ████╗░████║██╔══██╗██╔══██╗██║░██╔╝██╔════╝╚══██╔══╝
 ██████╦╝██║░░░░░███████║██║░░╚═╝█████═╝░  ██╔████╔██║███████║██████╔╝█████═╝░█████╗░░░░░██║░░░
 ██╔══██╗██║░░░░░██╔══██║██║░░██╗██╔═██╗░  ██║╚██╔╝██║██╔══██║██╔══██╗██╔═██╗░██╔══╝░░░░░██║░░░
 ██████╦╝███████╗██║░░██║╚█████╔╝██║░╚██╗  ██║░╚═╝░██║██║░░██║██║░░██║██║░╚██╗███████╗░░░██║░░░
-╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝░░░╚═╝░░░""",fg="white",bg="#1D1D1D",font=("Lucida Console","10")).pack(pady=10)
+╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝░░░╚═╝░░░""",fg="green",bg="#1D1D1D",font=("Lucida Console","10")).pack(pady=10)
     Label(nwe,text="Daily Item Shop (money: {})".format(str(money)),bg="#1D1D1D",fg="yellow",font=("Lucida Console","15")).pack()
     f = Frame(nwe, bg="#1D1D1D")
     f.pack(pady=10)
-    Label(nwe,text="Apple Upgrades     bundles       ".format(str(money)),bg="#1D1D1D",fg="yellow",font=("Lucida Console","15")).pack(pady=10)
+    Label(nwe,text="Apple Upgrades".format(str(money)),bg="#1D1D1D",fg="yellow",font=("Lucida Console","15")).pack(pady=10)
  
     def top():
         nwe.attributes("-topmost",True)
@@ -857,30 +832,7 @@ def shop():
             root.withdraw()
             messagebox.showinfo(title="error!",message="not enough money or\nmax apple limit reached")
             nwe.deiconify()
-            root.deiconify()
-    
-    def pepper():
-        global money, temp, temp2 
-        apples = int(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[5][1:])
-        if money >= 2000:
-            money -= 2000
-            temp2 = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()
-            temp = open(os.path.dirname(os.path.realpath(__file__))+"\.data", "w")
-            data1["items"][17] = 1
-            data1["items"][18] = 1
-            temp2[0] = "#" + str(data1) + "\n"
-            temp2[2] = "#" + str(money) + "\n"
-            for i in temp2:
-                temp.write(i)
-                temp.flush()
-            nwe.destroy()
-            shop()
-        else:
-            nwe.withdraw()
-            root.withdraw()
-            messagebox.showinfo(title="error!",message="not enough money!")
-            nwe.deiconify()
-            root.deiconify()
+            root.deiconify()    
 
     def kapp():
         global money, temp, temp2
@@ -914,28 +866,6 @@ def shop():
     ga2.pack()
     ga3 = Button(ga,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: appla())
     ga3.pack()
-
-    fa = Frame(f33,bg="#1D1D1D")
-    fa.pack(side=LEFT,padx=50)
-
-    fa1 = Canvas(fa,bg='black',width=50,height=50)
-
-    fa1.create_rectangle(10,10,25,25,fill='red',outline='white', width=2)
-    fa1.create_line(25,10,10,25,fill='white',width=3)
-    
-    fa1.create_rectangle(30,30,45,45,fill='white',outline='white', width=2)
-    fa1.create_line(40,30,30,40,fill='green',width=3)
-    fa1.create_line(45,30,30,45,fill='red',width=3)
-    fa1.create_line(45,35,35,45,fill='green',width=3)
-
-    fa1.pack(side=TOP)
-    fa2 = Label(fa,text="christmas bundle!\n2 skins for 2000",fg="yellow",bg="#1D1D1D",font=("Lucida Console","8"))
-    fa2.pack()
-    if data1["items"][17] != 1:
-        fa3 = Button(fa,text="buy",bg="#252525",fg="green",font=("Terminal","15"),command = lambda: pepper())
-    else:
-        fa3 = Label(fa,text="owned",bg="#252525",fg="green",font=("Terminal","15"))
-    fa3.pack()
 
     f44 = Frame(nwe,bg="#1D1D1D")
     f44.pack(side=BOTTOM)
