@@ -910,7 +910,7 @@ def loopvote():
         if votecolor == "blue":
             votecolor = "green"
         else:
-            votecolor = "blue"
+            votecolor = "green"
         window.after(300,loopvote)
     except Exception as e:
         pass
@@ -1007,14 +1007,13 @@ def start():
                     highlightcolor="#ffffff",
                     )
     button1.pack(side=LEFT)
-    button1a = Button(f77,text="COMING\nSOOOON",
+    button1a = Button(f77,text="nothing\nhere rn",
                     font=("Lucida Console","15"),
                     height=1,
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
                     highlightthickness=3,
-                    command=lambda: [messagebox.showinfo(title="big news...",message=cstext)],
                     fg="#ffffff",
                     borderwidth=4,
                     highlightcolor="#ffffff",
