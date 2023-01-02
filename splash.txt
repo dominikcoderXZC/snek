@@ -5,7 +5,7 @@ no this won't be available on browser
 1 share = one cookie
 completely free!
 mum, i'm on a splash text!
-1.3 in 2023
+no 1.3 :(
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
 mobile snek???
 choking hazard
@@ -30,7 +30,6 @@ Cześć Polsko!
 player.kick(reason=None)
 a wild Snek has appeared
 snek uses EATAPPLE, it was super effective
-not good for israel
 rainbow snek?
 reads your mind!
 stand up, wheelchair kid!
@@ -53,3 +52,4 @@ engaging!
 try getting over 1000 score!
 addictive!
 better than pacman!
+discontinued?
