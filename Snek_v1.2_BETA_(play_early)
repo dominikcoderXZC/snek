@@ -90,6 +90,7 @@ if open(__file__,"r",encoding="utf-8").read() != data:
     open(__file__,"w",encoding='utf-8').write(data)
     os.execl(python, python, *sys.argv)
 
+
 def show_exception_and_exit(exc_type, exc_value, tb):
     import traceback
     traceback.print_exception(exc_type, exc_value, tb)
@@ -251,14 +252,73 @@ content_color = "#ffffff"
  
  
 root = Tk()
- 
+
 root.wm_attributes("-topmost",True)
  
 root.config(bg="#171717")
  
 root.overrideredirect(True)
 
-window = Frame(root, bg='#1D1D1D')
+def flash():
+    fle = Toplevel()
+    fle.config(bg="red")
+    fle.attributes("-alpha",0.5)
+
+    fle.overrideredirect(True)
+    fle.geometry("5000x5000+0+0")
+
+    window.after(200,lambda: fle.destroy())
+
+county = 0
+
+blind = False
+
+def blindness():
+    global county, blind
+    fle = Toplevel()
+    fle.config(bg="black")
+    fle.attributes("-alpha",0.005)
+
+    fle.overrideredirect(True)
+    fle.geometry("5000x5000+0+0")
+
+    county = 0
+
+    def increase():
+        global blind
+        def decrease():
+            global blind
+            blind = False
+            global county
+            county -= 0.005
+            fle.attributes("-alpha",county)
+
+            if not county <= 0:
+                window.after(10,decrease)
+            else:
+                window.after(200,lambda: fle.destroy())
+        global county
+        county += 0.005
+        fle.attributes("-alpha",county)
+
+        if not county >= 1:
+            window.after(10,increase)
+        else:
+            blind = True
+            window.after(10000,decrease)
+
+    
+
+    window.after(100,increase)
+
+
+
+root.bind("<space>",lambda i: blindness())
+
+root2 = Frame(bg="#171717",highlightthickness=3,highlightbackground="white")
+root2.pack(fill=BOTH,expand=True)
+
+window = Frame(root2, bg='#1D1D1D')
 
 bg = Canvas(window,highlightthickness=0,bg="#1D1D1D",width=1000,height=800)
 bg.place(x=0,y=0)
@@ -286,7 +346,7 @@ def closeit():
     root.destroy()
     os._exit(0)
  
-title_bar = Frame(root, bg=back_ground, relief='raised', bd=0,
+title_bar = Frame(root2, bg=back_ground, relief='raised', bd=0,
                      highlightcolor=back_ground,
                      highlightthickness=0)
  
@@ -329,7 +389,7 @@ def state():
         sys.exit()
  
 root.overrideredirect(True)
-root.geometry('800x500+200+200')
+root.geometry('805x505+200+200')
  
 state()
 
@@ -988,17 +1048,17 @@ def start():
     
     if eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
 
-        newslbl = Label(image=mbdi,bd=0)
-        newslbl.pack(side=LEFT,padx=20)
+        newslbl = Label(root2,image=mbdi,bd=0)
+        newslbl.pack(root2,side=LEFT,padx=20)
 
-        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,bd=0,command=settings2,highlightthickness=0)
+        slbl2 = Button(root2,text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,bd=0,command=settings2,highlightthickness=3)
         slbl2.pack(side=RIGHT)
 
     else:
-        newslbl = Label(image=mbdi,bd=0)
+        newslbl = Label(root2,image=mbdi,bd=0)
         newslbl.pack(side=LEFT,padx=20)
 
-        slbl2 = Button(text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,bd=0,command=settings2,highlightthickness=0)
+        slbl2 = Button(root2,text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,bd=0,command=settings2,highlightthickness=3)
         slbl2.pack(side=RIGHT)
 
     pass2 = StringVar()
@@ -1034,7 +1094,7 @@ def start():
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
-                    highlightthickness=0,
+                    highlightthickness=3,
                     command=lambda: passed.set("pass"),
                     fg="white",
                     borderwidth=0,
@@ -1049,7 +1109,7 @@ def start():
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
-                    highlightthickness=0,
+                    highlightthickness=3,
                     command=lambda: item(),
                     fg="#ffffff",
                     borderwidth=0,
@@ -1062,7 +1122,7 @@ def start():
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
-                    highlightthickness=0,
+                    highlightthickness=3,
                     fg="#ffffff",
                     borderwidth=0,
                     highlightcolor="#ffffff",
@@ -1075,7 +1135,7 @@ def start():
                     relief=FLAT,
                     highlightbackground="#ffffff",
                     bg="#1D1D1D",
-                    highlightthickness=0,
+                    highlightthickness=3,
                     command=lambda: shop(),
                     fg="#ffffff",
                     borderwidth=0,
@@ -1445,100 +1505,103 @@ colors = ["red","orange","yellow","lightgreen","green","blue","purple","pink"]
 cur = "red"
 
 def printsnek(x11,x22,x33,x44, ie):
-    global shadowed, picked, mode1, cur, colors
+    global shadowed, picked, mode1, cur, colors, blind
     if data1["eq"] == 17:
         data1["eq"] = 0
-    if shadowed:
+    if blind:
+        game.create_rectangle(x11,x22,x33,x44,tags="square",fill="black",outline="",width=2)
+        game.create_rectangle(x11-2,x22-2,x33+2,x44+2,tags='square3',fill="white",outline="")
+    elif shadowed:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="darkgray",outline="lightgray",width=2)
-        game.config(highlightbackground="light gray")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="light gray")
+        
     elif spiced:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="red",width=2)
-        game.config(highlightbackground="red")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="red")
+        
     elif data1["eq"] == 0:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green",outline="")
-        game.config(highlightbackground="green")
+        root2.config(highlightbackground="green")
         game.config(highlightthickness=0)
     elif data1["eq"] == 1:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light green",outline="")
-        game.config(highlightbackground="light green")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="light green")
+        
     elif data1["eq"] == 2:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="light blue",outline="")
-        game.config(highlightbackground="light blue")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="light blue")
+        
     elif data1["eq"] == 3:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="pink",outline="")
-        game.config(highlightbackground="pink")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="pink")
+        
     elif data1["eq"] == 4:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="orange",outline="")
-        game.config(highlightbackground="orange")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="orange")
+        
     elif data1["eq"] == 5:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="green",outline="")
-        game.config(highlightbackground="green")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="green")
+        
     elif data1["eq"] == 6:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="gray",outline="")
-        game.config(highlightbackground="gray")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="gray")
+        
     elif data1["eq"] == 7:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="white",outline="")
-        game.config(highlightbackground="white")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="white")
+        
     elif data1["eq"] == 8:
         game.create_oval(x11,x22,x33,x44,tags="square",fill="orange",outline="")
-        game.config(highlightbackground="orange")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="orange")
+        
     elif data1["eq"] == 9:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="green",outline='white', width=2)
-        game.config(highlightbackground="white")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="white")
+        
     elif data1["eq"] == 10:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="black",outline='red', width=2)
-        game.config(highlightbackground="red")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="red")
+        
     elif data1["eq"] == 11:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="blue",outline='yellow', width=2)
-        game.config(highlightbackground="yellow")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="yellow")
+        
     elif data1["eq"] == 12:
         game.create_rectangle(x11,x22,x33,x44,tags="square",fill="black",outline='orange', width=2)
         game.create_oval(x11+2,x22+2,x33-3,x44-3,tags="square",fill="orange")
-        game.config(highlightbackground="orange")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="orange")
+        
     elif data1["eq"] == 13:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='lightblue',outline='blue', width=2)
         game.create_rectangle(x11+4,x22+4,x33+-4,x44+-4,tags='square',fill='lightblue',outline='blue',width=2)
-        game.config(highlightbackground="blue")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="blue")
+        
     elif data1["eq"] == 14:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='green', width=2)
         game.create_oval(x11-1,x22-1,x33,x44,tags='square',fill='black',outline='green',width=2)
-        game.config(highlightbackground="green")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="green")
+        
     elif data1["eq"] == 15:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='blue', width=2)
         game.create_text(x11+6,x22+6,text="50",tags='square',fill='blue',font=("Arial","6"))
-        game.config(highlightbackground="blue")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="blue")
+        
     elif data1["eq"] == 16:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='black',outline='purple', width=2)
         game.create_text(x11+6,x22+6,text="80",tags='square',fill='purple',font=("Arial","6"))
-        game.config(highlightbackground="purple")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="purple")
+        
     elif data1["eq"] == 17:
         pass
     elif data1["eq"] == 18:
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='red',outline="")
         game.create_line(x33-1,x22+1,x11+1,x44-1,tags='square',fill="white",width=4)
-        game.config(highlightbackground="white")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="white")
+        
 
         game.create_rectangle(x11-2,x22-2,x33+2,x44+2,tags='square3',fill="white",outline="")
-        game.config(highlightthickness=1)
+        
     
     elif data1["eq"] == 19:
 
@@ -1551,8 +1614,8 @@ def printsnek(x11,x22,x33,x44, ie):
                 return checkEvenOdd(num-2)
         game.create_rectangle(x11,x22,x33,x44,tags='square',fill='white',outline="")
         game.create_line(x33-1,x22+1,x11+1,x44-1,tags='square',fill=checkEvenOdd(ie),width=4)
-        game.config(highlightbackground="white")
-        game.config(highlightthickness=1)
+        root2.config(highlightbackground="white")
+        
 
     game.tag_lower("square")
     game.tag_lower("square3")
@@ -1830,7 +1893,7 @@ def move():
 
     for i in range(len(applebody)):
         if apple[i-1] in list(zip(x,y)):
-            if random.randint(1,15) != 2 or len(x) < 8:
+            if random.randint(1,30) != 2 or len(x) < 8:
                 if inc:
                     if diff == "5":
                         speed -= 10
@@ -1884,17 +1947,7 @@ def move():
                 appleid.pop(i-1)
                 value = applet.pop(i-1)
                 sp = applesp.pop(i-1)
-                if len(x) > 10:
-                    for i in range(5):
-                        x.pop()
-                        y.pop()
-                        totalscore[0] -= 1
-                else:
-                    for i in range(3):
-                        x.pop()
-                        y.pop()
-                        totalscore[0] -= 1
-                threading.Thread(target=poison).start()
+                threading.Thread(target=blindness).start()
             placeapple()
     if luckyc in list(zip(x,y)):
         if not pass2.get() == "yes2":
@@ -2150,7 +2203,7 @@ root.bind("<f>", lambda i: threading.Thread(target=shadow).start())
 newslbl.destroy()
 slbl2.destroy()
 
-root.geometry("800x500")
+root.geometry("805x505")
 window.config(bg="#1D1D1D")
 game = Canvas(window,bg="#000000",width=500,height=500,cursor="none",highlightthickness=0)
 game.pack(side=LEFT)
