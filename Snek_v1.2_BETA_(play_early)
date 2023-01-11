@@ -1049,7 +1049,7 @@ def start():
     if eval(open(os.path.dirname(os.path.realpath(__file__))+"\.data", "r").readlines()[6][1:]):
 
         newslbl = Label(root2,image=mbdi,bd=0)
-        newslbl.pack(root2,side=LEFT,padx=20)
+        newslbl.pack(side=LEFT,padx=20)
 
         slbl2 = Button(root2,text="⚙",font=("Lucida Console","20"),fg="green",bg="#171717",relief=FLAT,bd=0,command=settings2,highlightthickness=3)
         slbl2.pack(side=RIGHT)
