@@ -2008,7 +2008,7 @@ def move():
  
     player1dead.config(text=" {}".format(totalscore[0]))
 
-    coinss.config(text=" {}".format(totalcoins*2))
+    coinss.config(text=" {}".format(totalcoins))
 
     for i in range(len(x)):
         i += 1
